@@ -12,9 +12,10 @@ public class PlayerAnimationStateController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+ 
+    public void HandleWalkingAnim()
     {
-        if(ThirdPersonMovement.direction.magnitude>= 0.1f) 
+        if (ThirdPersonMovement.direction.magnitude >= 0.1f)
         {
             anim.SetBool("Walk", true);
         }
