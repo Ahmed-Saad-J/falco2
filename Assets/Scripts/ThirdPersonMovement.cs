@@ -12,6 +12,9 @@ public class ThirdPersonMovement : MonoBehaviour
     Vector3 velocity;
     public float gravity = -9.81f;
     PlayerManager playerManager;
+    public enum MovementState { walking, sprinting, air }
+    bool dashPressed;
+    Vector3 moveDirection;
 
     public void Start()
     {
@@ -45,10 +48,50 @@ public class ThirdPersonMovement : MonoBehaviour
             //smooth the angle transition
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref smoothVelocity, smoothTime);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             moveDirection.y = velocity.y;
             controller.Move(moveDirection.normalized * playerManager.speed * delta);
 
         }
     }
-}
+
+    public void StateHandler()
+    {
+        //sprinting
+        if(playerManager.grounded && Input.GetKey(playerManager.sprintKey))
+        {
+            playerManager.state = MovementState.sprinting;
+            playerManager.speed = playerManager.sprintingSpeed;
+        }
+        //walking
+        else if(playerManager.grounded){
+            playerManager.state = MovementState.walking;
+            playerManager.speed = playerManager.walkingSpeed;
+        }
+        //mid air
+        else
+        {
+            playerManager.state = MovementState.air;
+
+        }
+    }
+
+    public void HandleDash(float delta)
+    { 
+        dashPressed = Input.GetKey(playerManager.dashKey);
+        if(dashPressed)
+        {
+            StartCoroutine(Dash(delta));
+        }
+
+    }
+    IEnumerator Dash(float delta)
+    {
+        float startTime = Time.time;
+        while(Time.time< startTime+playerManager.dashTime)
+        {
+            controller.Move(moveDirection.normalized * playerManager.dashSpeed * delta);
+            yield return null;
+        }
+    }
+    }
