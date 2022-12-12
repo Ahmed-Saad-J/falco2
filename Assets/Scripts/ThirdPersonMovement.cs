@@ -41,6 +41,7 @@ public class ThirdPersonMovement : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         direction = new Vector3(horizontal, 0f, vertical).normalized;
+        
         if (direction.magnitude >= 0.1f)
         {
 
@@ -60,6 +61,8 @@ public class ThirdPersonMovement : MonoBehaviour
         //sprinting
         if(playerManager.grounded && Input.GetKey(playerManager.sprintKey))
         {
+            if (playerManager.isInteracting)
+                return;
             playerManager.state = MovementState.sprinting;
             playerManager.speed = playerManager.sprintingSpeed;
         }
