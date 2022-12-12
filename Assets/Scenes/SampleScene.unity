@@ -475,7 +475,8 @@ MonoBehaviour:
   coolDownTime: 0.8
   nextFiretime: 0
   lastClickTime: 0
-  maxComboDelay: 1
+  maxComboDelay: 2
+  no: 0
 --- !u!1001 &206551149
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1079,7 +1080,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.05296655, y: -0.000000034565225, z: 0.0000000018333743, w: 0.9985963}
+  m_LocalRotation: {x: 0.05296655, y: 0.00000003456523, z: -0.0000000018333745, w: 0.9985963}
   m_LocalPosition: {x: 3.83, y: 2.36, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1429,7 +1430,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347529662}
-  m_LocalRotation: {x: 0.052966543, y: -0.000000017182224, z: 9.113625e-10, w: 0.9985963}
+  m_LocalRotation: {x: 0.052966543, y: 0.000000017182234, z: -9.1136304e-10, w: 0.9985963}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
