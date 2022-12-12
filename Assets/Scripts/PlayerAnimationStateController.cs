@@ -14,6 +14,7 @@ public class PlayerAnimationStateController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         playerManager = GetComponent<PlayerManager>();
         playerAttack= GetComponent<PlayerAttack>();
+
     }
 
     // Update is called once per frame
@@ -117,5 +118,14 @@ public class PlayerAnimationStateController : MonoBehaviour
             PlayerAttack.numOfClicks = 0;
         }
 
+    }
+
+    public void OnImpactAnim()
+    {
+        anim.SetBool("takenDamage", true);
+    }
+    public void OnDeathAnim() 
+    {
+        anim.SetBool("dead", true);
     }
 }
