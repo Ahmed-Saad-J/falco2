@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static ThirdPersonMovement;
 
 public class PlayerManager : MonoBehaviour
 {
- 
+
     ThirdPersonMovement thirdPersonMovement;
     PlayerAnimationStateController playerAnimationStateController;
     [Header("Movement stats")]
@@ -17,43 +18,50 @@ public class PlayerManager : MonoBehaviour
     public float dashTime;
     [Header("Flags")]
     public bool grounded;
-    public bool isInteracting;
-    public bool isWalking;
-    public bool isSprinting;
-    public bool isBlocking;
-    public bool isAttack1;
-    public bool isAttack2;
-
-
     [Header("Key Binds")]
     public KeyCode sprintKey = KeyCode.LeftShift;
     public KeyCode blockKey = KeyCode.Mouse1;
     public KeyCode attackKey = KeyCode.Mouse0;
     public KeyCode dashKey = KeyCode.Space;
-    
+    public bool blockpressed;
     public MovementState state;
-
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+    public Gradient gradient;
     // Start is called before the first frame update
     void Start()
     {
         thirdPersonMovement= GetComponent<ThirdPersonMovement>();
         playerAnimationStateController= GetComponent<PlayerAnimationStateController>();
-    
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
 
     }
 
     // Update is called once per frame
     void Update()
     {
+       if(Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(20);
+        }
+
 
         float delta = Time.deltaTime;
         thirdPersonMovement.HandleGravety(delta);
         thirdPersonMovement.HandleMovement(delta);
         thirdPersonMovement.HandleDash(delta);
         playerAnimationStateController.HandleWalkAndSprintAnim();
-        playerAnimationStateController.HandleBlockAnim();
-        playerAnimationStateController.HandleAttackAnim();
-        playerAnimationStateController.isInteracting();
+        playerAnimationStateController.HandleBlockAndAttack();
         thirdPersonMovement.StateHandler();
+        
+    }
+    
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
     }
 }
