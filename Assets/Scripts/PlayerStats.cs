@@ -15,32 +15,31 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         playerAnimationStateController = GetComponent<PlayerAnimationStateController>();
-        thirdPersonMovement = GetComponent<ThirdPersonMovement>();
+        thirdPersonMovement= GetComponent<ThirdPersonMovement>();
         maxHealth = SetMaxHealthForLevel();
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        //healthBar.SetMaxHealth(maxHealth);
     }
     private int SetMaxHealthForLevel()
     {
-        maxHealth = healthLevel * 11;
+        maxHealth= healthLevel*11;
         return maxHealth;
     }
     public void TakeDamage(int damage)
     {
-        if (currentHealth > 0)
-        {
-            if (currentHealth < damage)
+        if(currentHealth > 0) { 
+            if (currentHealth < damage) 
             {
                 currentHealth = 0;
-                healthBar.SetCurrentHealth(0);
+                //healthBar.SetCurrentHealth(0);
                 playerAnimationStateController.OnDeathAnim();
                 //handle player death
-                thirdPersonMovement.controller.enabled = false;
+                thirdPersonMovement.controller.enabled= false;
             }
             else
             {
                 currentHealth -= damage;
-                healthBar.SetCurrentHealth(currentHealth);
+                //healthBar.SetCurrentHealth(currentHealth);
                 playerAnimationStateController.OnImpactAnim();
             }
         }

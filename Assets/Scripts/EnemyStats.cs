@@ -5,32 +5,21 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     Animator animator;
-    public int maxHealth;
-    public int currentHealth;
+    public int HP = 100;
+    public Animator anim;
+   
 
-    private void Start()
+    public void TakeDamage(int damageamount)
     {
-        maxHealth = 100;
-        currentHealth = maxHealth;
-    }
-
-    public void TakeDamage(int damage)
-    {
-        if (currentHealth > 0)
+       
+        HP -= damageamount; 
+        if(HP <= 0)
         {
-            if (currentHealth < damage)
-            {
-                currentHealth = 0;
-                //healthBar.SetCurrentHealth(0);
-                
-            }
-            else
-            {
-                currentHealth -= damage;
-                animator.Play("EnemyImpact_1");
-                //healthBar.SetCurrentHealth(currentHealth);
-                
-            }
+            anim.SetTrigger("Die");
+        }
+        else
+        {
+            anim.SetTrigger("Damage");
         }
     }
 }
